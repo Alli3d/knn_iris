@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
+import seaborn as sn
 
 iris = load_iris()
 
@@ -35,12 +36,15 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
 # knn
 knn = KNeighborsClassifier(n_neighbors=5)
 knn.fit(x_train, y_train)
-print(knn.score(x_test, y_test))
+print("KNN score: ",knn.score(x_test, y_test))
 
 # analysis
 y_pred = knn.predict(x_test)
 cm = confusion_matrix(y_test, y_pred)
-print(cm)
+plt.figure(figsize=(10, 7))
+sn.heatmap(cm, annot=True)
+plt.show()
+
 print(classification_report(y_test, y_pred))
 
 
