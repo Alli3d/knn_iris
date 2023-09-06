@@ -2,6 +2,10 @@ import pandas as pd
 from sklearn.datasets import load_iris
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+
 iris = load_iris()
 
 df = pd.DataFrame(iris.data,columns=iris.feature_names)
@@ -29,18 +33,14 @@ y = df.target
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
 
 # knn
-from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=5)
 knn.fit(x_train, y_train)
 print(knn.score(x_test, y_test))
 
 # analysis
-from sklearn.metrics import confusion_matrix
 y_pred = knn.predict(x_test)
 cm = confusion_matrix(y_test, y_pred)
 print(cm)
-
-from sklearn.metrics import classification_report
 print(classification_report(y_test, y_pred))
 
 
